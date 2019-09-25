@@ -1,7 +1,7 @@
 # SFM-internship
 Pre-degree internship @UNITN on Computer Vision > Social Force Model
 
-Here the Matlab code to compute the regression parameters through SFM.
+Here's the Matlab code to compute the regression parameters through SFM.
 
 ### WORKFLOW
 1. Run `multi_person.m` to compute all SFM parameters
