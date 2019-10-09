@@ -1,6 +1,5 @@
 function visualizeLearningRate(alphas)
-%VISUALIZELEARNINGRATE plots the cost function convergence plot for as many
-%times as there are alphas
+%% VISUALIZELEARNINGRATE plots the cost function convergence plot for as many times as there are alphas
 
     fprintf('Loading data ...\n');
 
@@ -18,7 +17,6 @@ function visualizeLearningRate(alphas)
     % Add intercept term to X
     X = [ones(m, 1) X];
 
-
     %% ================ Part 2: Gradient Descent ================
 
     fprintf('Running gradient descent ...\n');
@@ -28,8 +26,7 @@ function visualizeLearningRate(alphas)
 
     numAlphas = length(alphas);
 
-    % Init Theta and Run Gradient Descent for the number of alpha values
-    % available
+    % Init Theta and Run Gradient Descent for the number of alpha values available
 
     figure;
     hold on
@@ -44,8 +41,6 @@ function visualizeLearningRate(alphas)
         
         [~, J_history] = gradientDescentMulti(X, y, theta, alphas(i), num_iters);
 
-        
-        
         % Plot the convergence graph
         plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2,'Color',rand(1,3));
 

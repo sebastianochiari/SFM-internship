@@ -1,13 +1,13 @@
 %% Read data and sort 
 data = importdata('real_video_trajectory/ucy_zara01.csv');
 
-[H,W]=size(data);
+[H,W] = size(data);
 
-data_sort=sort(data,2,'ascend'); % ordina la matrice data per ottenere i parametri num_people, num_frame, num_group
+data_sort = sort(data,2,'ascend'); % ordina la matrice data per ottenere i parametri num_people, num_frame, num_group
 
-num_people=data_sort(2,W); % si calcola il numero di persone
-num_frame=data_sort(1,W); % si calcola il numero di frame
-num_group=data_sort(5,W); % si calcola il numero di gruppi
+num_people = data_sort(2,W); % si calcola il numero di persone
+num_frame = data_sort(1,W); % si calcola il numero di frame
+num_group = data_sort(5,W); % si calcola il numero di gruppi
 
 %% Get the regression input and output of each personID
 Subject_Data_X = zeros(0,0);

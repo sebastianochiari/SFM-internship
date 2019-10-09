@@ -1,13 +1,18 @@
 %% Read data and sort 
-data = importdata('eth_hotel.csv');
+data = importdata('real_video_trajectory/eth_univ.csv');
+
 [H,W]=size(data);
-data(2,:)=data(2,:)+1;
-data_sort=sort(data,2,'ascend'); %row rank to get some parameters
-[~,ind]=sort(data(2,:),'ascend');
-num_people=data_sort(2,W);
-num_frame=data_sort(1,W);
-num_group=data_sort(5,W);
-people_par=zeros(7,num_people);
+
+data(2,:) = data(2,:) + 1;
+
+data_sort = sort(data,2,'ascend'); % ordina la matrice data per ottenere i parametri num_people, num_frame, num_group
+
+num_people = data_sort(2,W); % si calcola il numero di persone
+num_frame = data_sort(1,W); % si calcola il numero di frame
+num_group = data_sort(5,W); % si calcola il numero di gruppi
+
+people_par = zeros(7,num_people);
+
 %% Get the regression input and output of each personID
 alpha = 0.01;
 num_iters = 20000;
