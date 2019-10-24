@@ -15,3 +15,6 @@ The parameters are contained in the matrices ThetaX. ThetaX1 contains parameters
 
 * `param_deal.m` deal with SFM parameters and store them
 * `get_start_end.m` get the timestamp and the position of start and end
+
+### UNITY SIMULATOR
+The simulator we use (which is not included into this repository) works on **Unity v. 2017.3.0f2**. On my MacBook, I run **Unity v. 2017.3.1f1** and everything works fine. The simulator is not compatible with updated Unity versions.
