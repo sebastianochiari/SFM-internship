@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import math
 
 # import the csv dataset
-data = pd.read_csv("real_video_trajectory/eth_hotel.csv", sep=",", header=None)
+data = pd.read_csv("real_video_trajectory/ucy_zara02.csv", sep=",", header=None)
 
 # set the radius
 radius = 5
@@ -120,7 +120,7 @@ neighbours.sort(axis = 1)
 # build a dictionary from the neighbours numpy array
 unique, counts = np.unique(neighbours, return_counts=True)
 a = dict(zip(unique, counts))
-with open('density_histograms/eth_hotel-RADIUS_5.txt', 'w') as f:
+with open('density_histograms/ucy_zara02-RADIUS_5.txt', 'w') as f:
     print(a, file=f)
 print(a)
 
