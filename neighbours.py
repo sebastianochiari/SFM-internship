@@ -17,10 +17,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 # load math library
 import math
-# 
+# load csv library
+import csv
+# load scipy library for graphics  
 from scipy.interpolate import UnivariateSpline
 
-def neighbours(file, radius, color):
+def crowdness(file, radius, color):
 
     """This function returns the density of pedestrian around each pID into each frame, by a given radius"""
     
@@ -100,6 +102,11 @@ def neighbours(file, radius, color):
                 if euclideian_distance <= float(radius):
                     neighbours[0,x] += 1
 
+    # append row
+    with open(file, 'a') as csvFile:
+        writer = csv.writer(csvFile)
+        writer.writerow(neighbours[0,:])
+
     # sort the numpy array in ascending order (not necessary)
     neighbours.sort(axis = 1)
 
@@ -115,23 +122,23 @@ def neighbours(file, radius, color):
 
 def pattern(file, color1, color2, color3):
     radius = 1
-    neighbours(file, radius, color1)
+    crowdness(file, radius, color1)
 
     radius = 2
-    neighbours(file, radius, color2)
+    crowdness(file, radius, color2)
 
     radius = 5
-    neighbours(file, radius, color3)
+    crowdness(file, radius, color3)
 
 def big_graphic(radius, color):
 
     from collections import Counter
     
-    tmp1 = neighbours("real_video_trajectory/eth_hotel.csv", radius, color)
-    tmp2 = neighbours("real_video_trajectory/eth_univ.csv", radius, color)
-    tmp3 = neighbours("real_video_trajectory/ucy_univ.csv", radius, color)
-    tmp4 = neighbours("real_video_trajectory/ucy_zara01.csv", radius, color)
-    tmp5 = neighbours("real_video_trajectory/ucy_zara02.csv", radius, color)
+    tmp1 = crowdness("real_video_trajectory/eth_hotel.csv", radius, color)
+    tmp2 = crowdness("real_video_trajectory/eth_univ.csv", radius, color)
+    tmp3 = crowdness("real_video_trajectory/ucy_univ.csv", radius, color)
+    tmp4 = crowdness("real_video_trajectory/ucy_zara01.csv", radius, color)
+    tmp5 = crowdness("real_video_trajectory/ucy_zara02.csv", radius, color)
 
     final = dict(Counter(tmp1) + Counter(tmp2) + Counter(tmp3) + Counter(tmp4) + Counter(tmp5))
     
@@ -165,17 +172,23 @@ def print_graphic_from_dictonary(dictionary, radius, color):
 # file = "real_video_trajectory/ucy_zara01.csv"
 # pattern(file, 'r', 'g', 'b')
 
-# file = "real_video_trajectory/ucy_zara02.csv"
+file = "real_video_trajectory/ucy_zara02.csv"
 # pattern(file, '#A62317', '#B31084', '#2C5CA8')
 
 # plt.show()
 
-big_graphic(1, 'r')
-big_graphic(2, 'b')
-big_graphic(5, 'g')
+# big_graphic(1, 'r')
+# big_graphic(2, 'b')
+# big_graphic(5, 'g')
 
-plt.gca().set(title="Overall crowd density per (pID, frame)")
-plt.gca().set(xlabel='# of close pedestrian')
-plt.gca().set(ylabel='# frame')
+# plt.gca().set(title="Overall crowd density per (pID, frame)")
+# plt.gca().set(xlabel='# of close pedestrian')
+# plt.gca().set(ylabel='# frame')
 
-plt.show()
+# plt.show()
+
+a = crowdness(file, 1, 'b')
+
+b = crowdness(file, 2, 'b')
+
+c = crowdness(file, 5, 'b')
