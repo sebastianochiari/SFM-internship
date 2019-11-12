@@ -111,50 +111,35 @@ def neighbours(file, radius, color):
     # with open('density_histograms/ucy_zara02-RADIUS_5.txt', 'w') as f:
     #     print(a, file=f)
 
-    #### BUILD HISTOGRAM ####
-
-    # x = list(a.keys())
-    # y = list(a.values())
-
-    # spl = UnivariateSpline(x, y)
-    
-    # plt.plot(x, spl(x), color, ms=5)
-
-    # build the histogram
-    # plt.bar(list(a.keys()), a.values(), color='g')
-    # plt.gca().set(title="Crowd density per ID with radius = 5")
-    # plt.gca().set(xlabel='# of close pedestrian')
-    # plt.gca().set(ylabel='# frame')
-
     return a
 
-def pattern(file, c1, c2, c3):
+def pattern(file, color1, color2, color3):
     radius = 1
-    neighbours(file, radius, c1)
+    neighbours(file, radius, color1)
 
     radius = 2
-    neighbours(file, radius, c2)
+    neighbours(file, radius, color2)
 
     radius = 5
-    neighbours(file, radius, c3)
+    neighbours(file, radius, color3)
 
 def big_graphic(radius, color):
 
     from collections import Counter
     
-    tmp1 = neighbours("real_video_trajectory/eth_hotel.csv", radius, 'b')
-    tmp2 = neighbours("real_video_trajectory/eth_univ.csv", radius, 'b')
-    tmp3 = neighbours("real_video_trajectory/ucy_univ.csv", radius, 'b')
-    tmp4 = neighbours("real_video_trajectory/ucy_zara01.csv", radius, 'b')
-    tmp5 = neighbours("real_video_trajectory/ucy_zara02.csv", radius, 'b')
+    tmp1 = neighbours("real_video_trajectory/eth_hotel.csv", radius, color)
+    tmp2 = neighbours("real_video_trajectory/eth_univ.csv", radius, color)
+    tmp3 = neighbours("real_video_trajectory/ucy_univ.csv", radius, color)
+    tmp4 = neighbours("real_video_trajectory/ucy_zara01.csv", radius, color)
+    tmp5 = neighbours("real_video_trajectory/ucy_zara02.csv", radius, color)
 
     final = dict(Counter(tmp1) + Counter(tmp2) + Counter(tmp3) + Counter(tmp4) + Counter(tmp5))
     
     print_graphic_from_dictonary(final,radius,color)
 
 def print_graphic_from_dictonary(dictionary, radius, color):
+    
     #### BUILD HISTOGRAM ####
-
     x = list(dictionary.keys())
     y = list(dictionary.values())
 

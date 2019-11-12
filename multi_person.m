@@ -36,6 +36,7 @@ thetaX = ones(4,1);
 %thetaY = zeros(4,1);
 thetaX(2) = 10; 
 Subject_Data_Y = Subject_Data_Y(:,1:4);
+
 tic
 
 [thetaX, J_history1] = gradientDescentMulti(Subject_Data_Y, Subject_Score_Y, thetaX, alpha, num_iters);
@@ -69,10 +70,10 @@ for i=1:num_people
     group = max(data(5,data(2,:)==i));
     if(group ~= 0)
         [Data_X,Data_Y,Score_X,Score_Y,fo] = group_scene_vision(data,i);
-        Group_Data_X=[Group_Data_X;Data_X];
-        Group_Data_Y=[Group_Data_Y;Data_Y];
-        Group_Score_X=[Group_Score_X,Score_X];
-        Group_Score_Y=[Group_Score_Y,Score_Y];
+        Group_Data_X = [Group_Data_X;Data_X];
+        Group_Data_Y = [Group_Data_Y;Data_Y];
+        Group_Score_X = [Group_Score_X,Score_X];
+        Group_Score_Y = [Group_Score_Y,Score_Y];
     end
 end
 

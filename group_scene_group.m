@@ -1,4 +1,4 @@
-function [Data_X,Score_X]=group_scene_group(Subject_Data_X,Subject_Score_X,thetaX);
+function [Data_X,Score_X] = group_scene_group(Subject_Data_X,Subject_Score_X,thetaX);
 
 len_X = numel(Subject_Score_X); % function numel(A) returns the number of elements in the array A
 Data_X = zeros(len_X,2); 
