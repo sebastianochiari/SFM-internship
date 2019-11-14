@@ -4,7 +4,7 @@ function [Subject_Data_X,Subject_Data_Y,Subject_Score_X,Subject_Score_Y,XY,dense
 %% Read data and sort according to personID
 [H,W] = size(data);
 data(3,:) = data(3,:); % perché copia la riga su se stessa?
-data(4,:)=data(4,:); % idem con patate
+data(4,:) = data(4,:); % idem con patate
 
 data_sort = sort(data,2,'ascend'); % ordina le righe di data per ottenere poi facilmente num_people, num_frame e num_group
 
@@ -140,14 +140,14 @@ Subject_Score_Y = zeros(1,maxi-mini-1);
 
 for i = 1:maxi-mini-1
 
-    Subject_Data_X(i,1) = fo(num_people+2,i,1);    % 1st row is desired speed force
+    Subject_Data_X(i,1) = fo(num_people+2,i,1);    % 1st column is desired speed force
     Subject_Data_Y(i,1) = fo(num_people+2,i,2);
     Subject_Score_X(1,i) = ac(1,i) + ve(1,i+1) / 0.5;    
     Subject_Score_Y(1,i) = ac(2,i) + ve(2,i+1) / 0.5;
 
     for j = 1:num_people
 
-        if(fo(j,i,3) > d2 && fo(j,i,3) < d3) % 4th row is d2-d3 range
+        if(fo(j,i,3) > d2 && fo(j,i,3) < d3) % 4th column is d2-d3 range
             
             if(group == 0)
               density_people(i) = density_people(i) + 1;
@@ -155,7 +155,7 @@ for i = 1:maxi-mini-1
               Subject_Data_Y(i,4) = Subject_Data_Y(i,4) + (d3 - fo(j,i,3)) * fo(j,i,2) / fo(j,i,3) / (d3 - d2);
             end
 
-        elseif(fo(j,i,3) > d1 && fo(j,i,3) < d2) % 3th row is d1-d2 range
+        elseif(fo(j,i,3) > d1 && fo(j,i,3) < d2) % 3th column is d1-d2 range
 
             density_people(i) = density_people(i) + 1;
             Subject_Data_X(i,3) = Subject_Data_X(i,3) + (d2 - fo(j,i,3)) * fo(j,i,1) / fo(j,i,3) / (d2-d1);
@@ -163,7 +163,7 @@ for i = 1:maxi-mini-1
             Subject_Data_X(i,4) = Subject_Data_X(i,4) + fo(j,i,1) * (fo(j,i,3) - d1) / fo(j,i,3) / (d2-d1);
             Subject_Data_Y(i,4) = Subject_Data_Y(i,4) + fo(j,i,2) * (fo(j,i,3) - d1) / fo(j,i,3) / (d2-d1);
 
-        elseif (fo(j,i,3) < d1 && fo(j,i,3) ~= 0) % 2nd row is <d1 range
+        elseif (fo(j,i,3) < d1 && fo(j,i,3) ~= 0) % 2nd column is <d1 range
             
             density_people(i) = density_people(i) + 1;
             Subject_Data_X(i,2) = Subject_Data_X(i,2) + (d1 - fo(j,i,3)) * fo(j,i,1) / fo(j,i,3) / d1;
@@ -178,7 +178,7 @@ for i = 1:maxi-mini-1
     if(fo(num_people+1,i,4) ~= 0)
     	
     	if(fo(num_people+1,i,3) > ((fo(num_people+1,i,4) - 1) / 2))
-    		Subject_Data_X(i,6) = fo(num_people+1,i,1) / fo(num_people+1,i,3); %attraction force
+    		Subject_Data_X(i,6) = fo(num_people+1,i,1) / fo(num_people+1,i,3); % attraction force
     		Subject_Data_Y(i,6) = fo(num_people+1,i,2) / fo(num_people+1,i,3);  
     	end
 
