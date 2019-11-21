@@ -3,7 +3,7 @@ disp('Read data and sort');
 
 tic
 
-data = importdata('crowded_real_video_trajectory/ucy_univ.csv');
+data = importdata('crowded_real_video_trajectory/ucy_zara01.csv');
 
 [H,W] = size(data);
 
@@ -89,7 +89,7 @@ while i ~= 1
             new_data(:,i) = [];
             boolean = 1;
         end
-    end 
+    end
     i = i - 1;
 end
 new_data(:,1) = [];
@@ -106,6 +106,13 @@ for i = 1:size(new_data,2)
     Subject_Score_Y(4,i) = new_data(8,i);
 end
 
+% Subject_Data_Y    > (x,7) RADIUS = 1
+%                   > (x,8) RADIUS = 2
+%                   > (x,9) RADIUS = 5
+% Subject_Score_Y   > (2,x) RADIUS = 1
+%                   > (3,x) RADIUS = 2
+%                   > (4,x) RADIUS = 5
+
 toc
 
 disp(newline);
@@ -116,17 +123,15 @@ disp('Choose subset of Subject_Score_Y and Subject_Data_Y according to the crowd
 tic
 
 % definire la crowdness su cui ci interessa realizzare la linear regression
-crowdness = 2;
+crowdness = 6;
 
 % modificare Subject_Score_Y e Subject_Data_Y di conseguenza
 i = size(new_data,2);
 while i ~= 0
-%     if(Subject_Data_Y(i,7) ~= crowdness)
-    if(Subject_Data_Y(i,7) <= crowdness)
+    if(Subject_Data_Y(i,9) < crowdness)
         Subject_Data_Y(i,:) = [];
     end
-%     if(Subject_Score_Y(2,i) ~= crowdness)
-    if(Subject_Score_Y(2,i) <= crowdness)
+    if(Subject_Score_Y(4,i) < crowdness)
         Subject_Score_Y(:,i) = [];
     end
     i = i - 1;
@@ -148,24 +153,37 @@ thetaX = ones(4,1);
 thetaX(2) = 10;
 
 Subject_Data_Y = Subject_Data_Y(:,1:4); % elimina le ultime colonne di Subject_Data_Y, lasciando solo dalla 1 alla 4
-Subject_Score_Y = Subject_Score_Y(1,:); % elimino le righe in più per riportarlo alla forma iniziale
+Subject_Score_Y = Subject_Score_Y(1,:); % elimino le righe in piï¿½ per riportarlo alla forma iniziale
 
 tic
 
 [thetaX, J_history1] = gradientDescentMulti(Subject_Data_Y, Subject_Score_Y, thetaX, alpha, num_iters);
+% thetaX (|v des|, f1, f2, f3)
 
 toc
 
 disp(newline);
 
 %% Plot of consumption and data fitting of 1st regression
-figure(1)
-plot(1:numel(J_history1), J_history1, '-b', 'LineWidth', 2);
-xlabel('Number of iterations');
-ylabel('Cost J')
-figure(2)
-hold on
-plot(1:numel(Subject_Score_Y),Subject_Data_Y*thetaX,'-y', 'LineWidth', 2);
-legend('real weights','regression');
-hold off
-title('1st regression on F1,F2,F3 and speed')
+% figure(1)
+% plot(1:numel(J_history1), J_history1, '-b', 'LineWidth', 2);
+% xlabel('Number of iterations');
+% ylabel('Cost J')
+% figure(2)
+% hold on
+% plot(1:numel(Subject_Score_Y),Subject_Data_Y*thetaX,'-y', 'LineWidth', 2);
+% legend('real weights','regression');
+% hold off
+% title('1st regression on F1,F2,F3 and speed')
+
+%% Export thetaX parameters to file for post-process and graphic building in plotter.py
+disp('Export thetaX parameters to file for post-process and graphic building in plotter.py');
+
+tic
+
+thetaX = transpose(thetaX);
+% dlmwrite('1st linear regression/ucy_zara01/radius = 5/ucy_zara01_param-radius5.csv', thetaX, 'delimiter', ',');
+dlmwrite('1st linear regression/ucy_zara01/radius = 5/ucy_zara01_param-radius5.csv', thetaX, '-append', 'delimiter', ',');
+
+
+toc
