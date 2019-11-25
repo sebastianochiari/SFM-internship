@@ -98,11 +98,11 @@ for i = 1:size(new_data,2)
     % aggiorniamo Subject_Data_Y con new_data
     Subject_Data_Y(i,7) = new_data(6,i);
     Subject_Data_Y(i,8) = new_data(7,i);
-    Subject_Data_Y(i,9) = new_data(8,i);
+    Subject_Data_Y(i,9) = roud(new_data(11,i));
     % aggiorniamo Subject_Score_Y con new_data
     Subject_Score_Y(2,i) = new_data(6,i); 
     Subject_Score_Y(3,i) = new_data(7,i);
-    Subject_Score_Y(4,i) = new_data(8,i);
+    Subject_Score_Y(4,i) = round(new_data(8,i));
 end
 
 % Subject_Data_Y    > (x,7) RADIUS = 1
@@ -122,15 +122,15 @@ disp('Choose subset of Subject_Score_Y and Subject_Data_Y according to the crowd
 tic
 
 % definire la crowdness su cui ci interessa realizzare la linear regression
-crowdness = 6;
+crowdness = 5;
 
 % modificare Subject_Score_Y e Subject_Data_Y di conseguenza
 i = size(new_data,2);
 while i ~= 0
-    if(Subject_Data_Y(i,9) < crowdness)
+    if(Subject_Data_Y(i,9) >= crowdness)
         Subject_Data_Y(i,:) = [];
     end
-    if(Subject_Score_Y(4,i) < crowdness)
+    if(Subject_Score_Y(4,i) >= crowdness)
         Subject_Score_Y(:,i) = [];
     end
     i = i - 1;
