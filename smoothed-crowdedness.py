@@ -12,7 +12,7 @@ print('loading python modules')
 import pandas as pd
 
 # importing dataset
-file = "crowded_real_video_trajectory/ucy_zara02.csv"
+file = "crowded_real_video_trajectory/eth_hotel.csv"
 data = pd.read_csv(file, sep=",", header=None)
 
 # transpose dataset
@@ -24,7 +24,7 @@ df_transposed.columns = ['frame', 'id', 'x', 'y', 'g', 'r1', 'r2', 'r5']
 columnsTitles=['id', 'frame', 'x', 'y', 'g', 'r1', 'r2', 'r5', 'sr1', 'sr2', 'sr5']
 df_transposed = df_transposed.reindex(columns=columnsTitles)
 
-df_transposed = df_transposed.sort_values(by=['id'])
+df_transposed = df_transposed.sort_values(by=['id', 'frame'])
 df_transposed = df_transposed.reset_index(drop=True)
 
 data = df_transposed.transpose()
@@ -130,4 +130,4 @@ data.iloc[loc_smooth, x] = media
 
 # print(data)
 
-data.to_csv("smoothed_crowdedness_datasets/smooth-crowded-ucy_zara02.csv", sep=',', index=False)
+data.to_csv("smoothed_crowdedness_datasets/smooth-crowded-eth_hotel.csv", sep=',', header=False, index=False)

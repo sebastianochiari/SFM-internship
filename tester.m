@@ -3,7 +3,7 @@ disp('Read data and sort');
 
 tic
 
-data = importdata('crowded_real_video_trajectory/ucy_zara01.csv');
+data = importdata('smoothed_crowdedness_datasets/smooth-crowded-ucy_univ.csv');
 
 [H,W] = size(data);
 
@@ -11,7 +11,6 @@ data_sort = sort(data,2,'ascend'); % ordina una copia della matrice data per ott
 
 num_people = data_sort(2,W); % si calcola il numero di persone
 num_frame = data_sort(1,W); % si calcola il numero di frame
-num_group = data_sort(5,W); % si calcola il numero di gruppi
 
 toc
 
@@ -182,8 +181,8 @@ disp('Export thetaX parameters to file for post-process and graphic building in 
 tic
 
 thetaX = transpose(thetaX);
-% dlmwrite('1st linear regression/ucy_zara01/radius = 5/ucy_zara01_param-radius5.csv', thetaX, 'delimiter', ',');
-dlmwrite('1st linear regression/ucy_zara01/radius = 5/ucy_zara01_param-radius5.csv', thetaX, '-append', 'delimiter', ',');
+dlmwrite('smoothed_crowdedness/ucy_univ/radius = 5/ucy_univ_param-radius5.csv', thetaX, 'delimiter', ',');
+% dlmwrite('1st linear regression/ucy_zara01/radius = 5/ucy_zara01_param-radius5.csv', thetaX, '-append', 'delimiter', ',');
 
 
 toc
