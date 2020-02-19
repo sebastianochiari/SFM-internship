@@ -54,7 +54,7 @@ elif radius == 5:
 
 for x in range(offset_value,columns - offset_value):
     
-    # mi salvo il valore di crowdedness del frame che sto analizzando
+    # saving th crowdedness from the frame I'm looking
     media = data.iloc[loc_crowd,x]
     media_divisor = 1
 
@@ -69,7 +69,7 @@ for x in range(offset_value,columns - offset_value):
             media_divisor = media_divisor + 1
     
     media = float(media / media_divisor)
-    data.iloc[loc_smooth, x] = media
+    data.iloc[loc_smooth, x] = int(round(media))
 
 # edit the left out values
 x = 0
@@ -81,7 +81,7 @@ for j in range(1, offset_value+1):
         media = media + data.iloc[loc_crowd,offset]
         media_divisor = media_divisor + 1
 media = float(media / media_divisor)
-data.iloc[loc_smooth, x] = media
+data.iloc[loc_smooth, x] = int(round(media))
 
 x = 1
 media = data.iloc[loc_crowd, x]
@@ -98,7 +98,7 @@ for j in range(1, offset_value+1):
             media_divisor = media_divisor + 1
 
 media = float(media / media_divisor)
-data.iloc[loc_smooth, x] = media
+data.iloc[loc_smooth, x] = int(round(media))
 
 x = columns - 2
 media = data.iloc[loc_crowd, x]
@@ -115,7 +115,7 @@ for j in range(1, offset_value+1):
         media_divisor = media_divisor + 1
 
 media = float(media / media_divisor)
-data.iloc[loc_smooth, x] = media
+data.iloc[loc_smooth, x] = int(round(media))
 
 x = columns - 1
 media = data.iloc[loc_crowd, x]
@@ -126,11 +126,9 @@ for j in range(1, offset_value+1):
         media = media + data.iloc[loc_crowd,offset]
         media_divisor = media_divisor + 1
 media = float(media / media_divisor)
-data.iloc[loc_smooth, x] = media
+data.iloc[loc_smooth, x] = int(round(media))
 
-# print(data)
-
-# ripristinare la matrice data alla forma originale (frame nella prima riga e ordinata per frame)
+# reset the matrix to its original form-factor (frames in the first row and ordered by frame)
 df_transposed = data.transpose()
 
 columnsTitles=['frame', 'id', 'x', 'y', 'g', 'r1', 'r2', 'r5', 'sr1', 'sr2', 'sr5']
