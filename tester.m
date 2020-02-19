@@ -146,7 +146,7 @@ end
 disp("Choosing the radius for the regression");
 
 % inserire il raggio scelto
-radius = 1;
+radius = 5;
 
 if radius == 1
     
@@ -169,22 +169,23 @@ toc
 
 disp(newline);
 
-%% Choose subset of Subject_Score_Y and Subject_Data_Y according to the crowdness level desired
-disp('Choose subset of Subject_Score_Y and Subject_Data_Y according to the crowdness level desired');
+%% Choose subset of Subject_Score and Subject_Data according to the crowdness level desired
+disp('Choose subset of Subject_Score and Subject_Data according to the crowdness level desired');
 
 tic
 
 % definire la crowdness su cui ci interessa realizzare la linear regression
-crowdedness = 0;
+crowdedness_down = 30; % incluso
+crowdedness_up = 100; % escluso
 
 % MODIFICARE LE CONDIZIONI DEGLI IF PER ELIMINARE LE COLONNE CHE NON
 % RISPETTANO LA CROWDEDNESS CHE SI VUOLE ANDARE AD INDAGARE
 i = size(new_data,2);
 while i ~= 0
-    if(Subject_Data(i,SD_radius) > crowdedness)
+    if(Subject_Data(i,SD_radius) < crowdedness_down || Subject_Data(i,SD_radius) >= crowdedness_up)
         Subject_Data(i,:) = [];
     end
-    if(Subject_Score(SS_radius,i) > crowdedness)
+    if(Subject_Score(SS_radius,i) < crowdedness_down || Subject_Score(SS_radius,i) >= crowdedness_up)
         Subject_Score(:,i) = [];
     end
     i = i - 1;
@@ -219,14 +220,16 @@ toc
 
 disp(newline);
 
-%% Export thetaX parameters to file for post-process and graphic building in plotter.py
-disp('Export thetaX parameters to file for post-process and graphic building in plotter.py');
+%% Export theta parameters to file for post-process and graphic building in plotter.py
+disp('Export theta parameters to file for post-process and graphic building in plotter.py');
 
 tic
 
 theta = transpose(theta);
-dlmwrite('crowdedness/ucy_univ/radius = 1/ucy_univ_param-radius1.csv', theta, 'delimiter', ',');
-% dlmwrite('1st linear regression/ucy_zara01/radius = 5/ucy_zara01_param-radius5.csv', thetaX, '-append', 'delimiter', ',');
+% dlmwrite('crowdedness/ucy_univ/radius = 5/ucy_univ_param-radius5.csv', theta, 'delimiter', ',');
+dlmwrite('crowdedness/ucy_univ/radius = 5/ucy_univ_param-radius5.csv', theta, '-append', 'delimiter', ',');
 
+load handel
+sound(y,Fs)
 
 toc
