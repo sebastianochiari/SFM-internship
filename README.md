@@ -3,8 +3,8 @@ Pre-degree internship @UNITN on Computer Vision > Social Force Model
 
 Here's the Matlab code to compute the regression parameters through SFM.
 
-### DATASETS CHEATSHEET
-`real_video_trajectory/`
+## DATASETS CHEATSHEET
+### `real_video_trajectory/`
 
 | Row           | Content       |
 | ------------- | ------------- |
@@ -14,7 +14,7 @@ Here's the Matlab code to compute the regression parameters through SFM.
 | 4             | Y             |
 | 5             | group         |
 
-`crowded_real_video_trajectory/`
+### `crowded_real_video_trajectory/`
 
 first 5 rows as `real_video_trajectory/` ones
 | Row           | Content                       |
@@ -22,6 +22,14 @@ first 5 rows as `real_video_trajectory/` ones
 | 6             | crowdness with `radius = 1`   |
 | 7             | crowdness with `radius = 2`   |
 | 8             | crowdness with `radius = 5`   |
+
+### `smoothed-crowdedness_datasets/`
+first 8 rows as `crowded_real_video_trajectory/`
+| Row           | Content                                |
+| ------------- | -------------                          |
+| 9             | smooth-crowdedness with `radius = 1`   |
+| 10            | smooth-crowdedness with `radius = 2`   |
+| 11            | smooth-crowdedness with `radius = 5`   |
 
 
 ### WORKFLOW
