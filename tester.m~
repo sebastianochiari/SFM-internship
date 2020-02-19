@@ -143,27 +143,17 @@ for i = 1:size(new_data,2)
 end
 
 %% Choose the radius for the regression
-disp("Choosing the radius for the regression");
 
-% inserire il raggio scelto
 radius = 1;
 
-if radius == 1
-    
-    SD_radius = 7;
-    SS_radius = 2;
-    
-elseif radius == 2
-    
-    SD_radius = 8;
-    SS_radius = 3;
-    
-elseif radius == 5
-    
-    SD_radius = 9;
-    SS_radius = 4;
-    
-end
+if
+
+% Subject_Data      > (x,7) RADIUS = 1
+%                   > (x,8) RADIUS = 2
+%                   > (x,9) RADIUS = 5
+% Subject_Score     > (2,x) RADIUS = 1
+%                   > (3,x) RADIUS = 2
+%                   > (4,x) RADIUS = 5
 
 toc
 
@@ -177,14 +167,13 @@ tic
 % definire la crowdness su cui ci interessa realizzare la linear regression
 crowdedness = 0;
 
-% MODIFICARE LE CONDIZIONI DEGLI IF PER ELIMINARE LE COLONNE CHE NON
-% RISPETTANO LA CROWDEDNESS CHE SI VUOLE ANDARE AD INDAGARE
+% modificare Subject_Score_Y e Subject_Data_Y di conseguenza
 i = size(new_data,2);
 while i ~= 0
-    if(Subject_Data(i,SD_radius) > crowdedness)
+    if(Subject_Data(i,7) > crowdedness)
         Subject_Data(i,:) = [];
     end
-    if(Subject_Score(SS_radius,i) > crowdedness)
+    if(Subject_Score(2,i) > crowdedness)
         Subject_Score(:,i) = [];
     end
     i = i - 1;
@@ -202,18 +191,16 @@ alpha = 0.01;
 % choose the number of iterations
 num_iters = 20000;
 % init theta and run gradient descent
-theta = ones(4,1);
-theta(2) = 10;
-theta(3) = 2;
-theta(4) = 0.5;
+thetaX = ones(4,1);
+thetaX(2) = 10;
 
 Subject_Data = Subject_Data(:,1:4); % elimina le ultime colonne di Subject_Data_Y, lasciando solo dalla 1 alla 4
 Subject_Score = Subject_Score(1,:); % elimino le righe in più per riportarlo alla forma iniziale
 
 tic
 
-[theta, J_history1] = gradientDescentMulti(Subject_Data, Subject_Score, theta, alpha, num_iters);
-% theta (|v des|, f1, f2, f3)
+[thetaX, J_history1] = gradientDescentMulti(Subject_Data, Subject_Score, thetaX, alpha, num_iters);
+% thetaX (|v des|, f1, f2, f3)
 
 toc
 
@@ -224,8 +211,8 @@ disp('Export thetaX parameters to file for post-process and graphic building in 
 
 tic
 
-theta = transpose(theta);
-dlmwrite('crowdedness/ucy_univ/radius = 1/ucy_univ_param-radius1.csv', theta, 'delimiter', ',');
+thetaX = transpose(thetaX);
+dlmwrite('crowdedness/ucy_univ/radius = 1/ucy_univ_param-radius1.csv', thetaX, 'delimiter', ',');
 % dlmwrite('1st linear regression/ucy_zara01/radius = 5/ucy_zara01_param-radius5.csv', thetaX, '-append', 'delimiter', ',');
 
 
