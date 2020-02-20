@@ -227,8 +227,8 @@ tic
 
 theta = transpose(theta);
 
-% dlmwrite('crowdedness/ucy_zara01/ucy_zara01_param-radius5.csv', theta, 'delimiter', ',');
-dlmwrite('crowdedness/ucy_zara01/ucy_zara01_param-radius5.csv', theta, '-append', 'delimiter', ',');
+dlmwrite('crowdedness/ucy_zara01/ucy_zara01_param-standard.csv', theta, 'delimiter', ',');
+% dlmwrite('crowdedness/ucy_zara01/ucy_zara01_param-radius5.csv', theta, '-append', 'delimiter', ',');
 
 load gong
 sound(y,Fs)
