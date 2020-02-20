@@ -146,7 +146,7 @@ end
 disp("Choosing the radius for the regression");
 
 % inserire il raggio scelto
-radius = 5;
+radius = 2;
 
 if radius == 1
     
@@ -175,8 +175,8 @@ disp('Choose subset of Subject_Score and Subject_Data according to the crowdness
 tic
 
 % definire la crowdness su cui ci interessa realizzare la linear regression
-crowdedness_down = 10; % incluso
-crowdedness_up = 15; % escluso
+crowdedness_down = 2; % incluso
+crowdedness_up = 4; % escluso
 
 % MODIFICARE LE CONDIZIONI DEGLI IF PER ELIMINARE LE COLONNE CHE NON
 % RISPETTANO LA CROWDEDNESS CHE SI VUOLE ANDARE AD INDAGARE
@@ -226,11 +226,11 @@ disp('Export theta parameters to file for post-process and graphic building in p
 tic
 
 theta = transpose(theta);
+% dlmwrite('crowdedness/ucy_zara01/radius = 2/ucy_zara01_param-radius2.csv', theta, 'delimiter', ',');
 
-% dlmwrite('crowdedness/ucy_zara01/ucy_zara01_param-radius5.csv', theta, 'delimiter', ',');
-dlmwrite('crowdedness/ucy_zara01/ucy_zara01_param-radius5.csv', theta, '-append', 'delimiter', ',');
+dlmwrite('crowdedness/ucy_zara01/radius = 2/ucy_zara01_param-radius2.csv', theta, '-append', 'delimiter', ',');
 
-load gong
+load handel
 sound(y,Fs)
 
 toc
