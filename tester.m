@@ -175,8 +175,8 @@ disp('Choose subset of Subject_Score and Subject_Data according to the crowdness
 tic
 
 % definire la crowdness su cui ci interessa realizzare la linear regression
-crowdedness_down = 10; % incluso
-crowdedness_up = 15; % escluso
+crowdedness_down = 8; % incluso
+crowdedness_up = 50; % escluso
 
 % MODIFICARE LE CONDIZIONI DEGLI IF PER ELIMINARE LE COLONNE CHE NON
 % RISPETTANO LA CROWDEDNESS CHE SI VUOLE ANDARE AD INDAGARE
