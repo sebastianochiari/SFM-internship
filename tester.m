@@ -3,7 +3,7 @@ disp('Read data and sort');
 
 tic
 
-data = importdata('smoothed_crowdedness_datasets/smooth-crowded-ucy_zara01.csv');
+data = importdata('smoothed_crowdedness_datasets/smooth-crowded-ucy_univ.csv');
 
 [H,W] = size(data);
 
@@ -193,8 +193,8 @@ disp('Choose subset of Subject_Score and Subject_Data according to the crowdness
 tic
 
 % definire la crowdness su cui ci interessa realizzare la linear regression
-crowdedness_down = 8; % incluso
-crowdedness_up = 50; % escluso
+crowdedness_down = 30; % incluso
+crowdedness_up = 100; % escluso
 
 % MODIFICARE LE CONDIZIONI DEGLI IF PER ELIMINARE LE COLONNE CHE NON
 % RISPETTANO LA CROWDEDNESS CHE SI VUOLE ANDARE AD INDAGARE
@@ -245,8 +245,8 @@ tic
 
 theta = transpose(theta);
 
-% dlmwrite('smoothed_crowdedness/ucy_zara01/ucy_zara01_param-radius5.csv', theta, 'delimiter', ',');
-dlmwrite('smoothed_crowdedness/ucy_zara01/ucy_zara01_param-radius5.csv', theta, '-append', 'delimiter', ',');
+% dlmwrite('smoothed_crowdedness/ucy_univ/ucy_univ_param-radius5.csv', theta, 'delimiter', ',');
+dlmwrite('smoothed_crowdedness/ucy_univ/ucy_univ_param-radius5.csv', theta, '-append', 'delimiter', ',');
 
 load gong
 sound(y,Fs)
