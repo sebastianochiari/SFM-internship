@@ -17,7 +17,7 @@ The linear regression was computed giving slices of the dataset sorted by:
 - 0 <= crowdedness < 2
 - 2 <= crowdedness < 4
 - 4 <= crowdedness < 6
-- 5 <= crowdedness < 8
+- 6 <= crowdedness < 8
 - crowdedness >= 8
 
 **RADIUS = 5**
